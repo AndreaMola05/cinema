@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actors</title>
+    <!-- Bootstrap CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            margin-bottom: 30px;
+        }
+
+        .search-form .input-group {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .actor-card {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-body {
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        .movie-list {
+            padding-left: 20px;
+        }
+
+        .movie-list p {
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus,
+        .btn-secondary:active {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .input-group .form-control {
+            border-right: 0;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .input-group .input-group-append .btn {
+            border-left: 0;
+            border-radius: 0 50px 50px 0;
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 15px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-3">Elenco degli attori</h1>
+
+        <form method="GET" class="search-form">
+            <div class="input-group">
+                <input type="text" name="last_name" class="form-control" placeholder="Search" required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search for an actor</button>
+                </div>
+            </div>
+        </form>
+
+        <ul class="list-unstyled">
+            {% for actor in actors %}
+                <li class="actor-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>{{ actor.first_name }} {{ actor.last_name }}</h3>
+                            <ul class="movie-list">
+                                {% for movie in actor.movies %}
+                                    <li>
+                                        <p><strong>Film title:</strong> {{ movie.title }}</p>
+                                        <p><strong>Release date:</strong> {{ movie.released_year }}</p>
+                                        <p><strong>Movie synopsis:</strong> {{ movie.synopsis }}</p>
+                                        <p><strong>Movie duration:</strong> {{ movie.duration }} minutes</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="../api.php/actors.html.twig" class="btn btn-secondary">Tutti gli attori</a>
+        <a href="../api.php/" class="btn btn-primary">Home page</a>
+    </div>
+
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
